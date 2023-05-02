@@ -2,6 +2,7 @@ import pygame as pg
 from support import walk_images
 from map import Room
 
+
 class Player(pg.sprite.Sprite):
     def __init__(self, group):
         super().__init__(group)
@@ -34,29 +35,9 @@ class Player(pg.sprite.Sprite):
         else:
             self.direction.y = 0
 
-        self.colliding()
-
     def move(self):
         self.get_dir()
         self.rect.center += self.direction * self.speed
-
-    def colliding(self):
-        flag = False
-        for hitbox in Room.ALL_HITBOXES:
-            if self.rect.colliderect(hitbox):
-                if self.direction.x == 1:
-                    self.rect.right = hitbox.left
-                elif self.direction.x == -1:
-                    self.rect.left = hitbox.right
-                if self.direction.y == 1:
-                    self.rect.bottom = hitbox.top
-                elif self.direction.y == -1:
-                    self.rect.top = hitbox.bottom
-                flag = True
-                break
-        return flag
-
-
 
     def animate(self):
         keys = pg.key.get_pressed()

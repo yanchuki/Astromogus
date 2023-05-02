@@ -42,7 +42,7 @@ class Camera(pg.sprite.Group):
         for sprite in self.sprites():
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
-            if isinstance(sprite, Room) and not player.colliding():
+            if isinstance(sprite, Room):
                 sprite.hitboxes_update(player)
 
 #  and not player.rect.collidelistall(Room.ALL_HITBOXES)
