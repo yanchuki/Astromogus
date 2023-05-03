@@ -23,7 +23,6 @@ class Game:
 
             self.camera_group.update()
             self.camera_group.custom_draw(self.player)
-            print(Room.ALL_HITBOXES)
 
             pg.display.update()
             self.fr.tick(60)
