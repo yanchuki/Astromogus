@@ -1,6 +1,5 @@
 import pygame as pg
 from support import walk_images
-from map import Room
 
 
 class Player(pg.sprite.Sprite):
@@ -12,6 +11,8 @@ class Player(pg.sprite.Sprite):
 
         self.rect = self.image.get_rect(center=(pg.display.get_window_size()[0] // 2,
                                                 pg.display.get_window_size()[1] // 2))
+
+        self.hitbox = self.rect.copy()
 
         self.speed = 3
         self.direction = pg.math.Vector2()
@@ -34,6 +35,23 @@ class Player(pg.sprite.Sprite):
             self.direction.y = -1
         else:
             self.direction.y = 0
+
+    def colliding(self, hitboxes: list):
+        for hitbox in hitboxes:
+            if self.hitbox.colliderect(hitbox):
+                print('Touch')
+                if self.direction.y == -1:
+                    self.hitbox.y += self.speed
+                elif self.direction.y == 1:
+                    self.hitbox.y -= self.speed
+
+                if self.direction.x == -1:
+                    self.hitbox.x += self.speed
+                elif self.direction.x == 1:
+                    self.hitbox.x -= self.speed
+
+                self.direction.y = 0
+                self.direction.x = 0
 
     def move(self):
         self.get_dir()
