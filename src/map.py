@@ -52,4 +52,3 @@ class Camera(pg.sprite.Group):
                     pg.draw.rect(self.display_surface, 'red', hitbox, 2)
         player.colliding(hitboxes)
         pg.draw.rect(pg.display.get_surface(), 'red', player.hitbox, 2)
-#  and not player.rect.collidelistall(Room.ALL_HITBOXES)
