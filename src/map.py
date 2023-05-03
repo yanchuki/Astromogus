@@ -1,5 +1,6 @@
 import pygame as pg
 from support import get_hitboxes
+from charecters import Player
 
 
 class Room(pg.sprite.Sprite):
@@ -16,7 +17,7 @@ class Room(pg.sprite.Sprite):
     def hitboxes_update(self, player):
         for hitbox in self.hitboxes:
             hitbox.center -= player.direction * player.speed
-            pg.draw.rect(pg.display.get_surface(), 'red', hitbox, 2)
+
 
 
 class Camera(pg.sprite.Group):
@@ -41,8 +42,14 @@ class Camera(pg.sprite.Group):
 
         for sprite in self.sprites():
             offset_pos = sprite.rect.topleft - self.offset
-            self.display_surface.blit(sprite.image, offset_pos)
+            if not isinstance(sprite, Player):
+                self.display_surface.blit(sprite.image, offset_pos)
+            else:
+                self.display_surface.blit(sprite.image, player.hitbox)
             if isinstance(sprite, Room):
                 sprite.hitboxes_update(player)
-
+                for hitbox in hitboxes:
+                    pg.draw.rect(self.display_surface, 'red', hitbox, 2)
+        player.colliding(hitboxes)
+        pg.draw.rect(pg.display.get_surface(), 'red', player.hitbox, 2)
 #  and not player.rect.collidelistall(Room.ALL_HITBOXES)
