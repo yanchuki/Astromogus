@@ -38,20 +38,21 @@ class Player(pg.sprite.Sprite):
 
     def colliding(self, hitboxes: list):
         for hitbox in hitboxes:
-            if self.hitbox.colliderect(hitbox):
-                print('Touch')
+            # print('Touch')
+            if self.hitbox.colliderect(hitbox) and self.direction.y:
                 if self.direction.y == -1:
                     self.hitbox.y += self.speed
+                    self.direction.y = 0
                 elif self.direction.y == 1:
                     self.hitbox.y -= self.speed
-
+                    self.direction.y = 0
+            if self.hitbox.colliderect(hitbox) and self.direction.x:
                 if self.direction.x == -1:
                     self.hitbox.x += self.speed
+                    self.direction.x = 0
                 elif self.direction.x == 1:
                     self.hitbox.x -= self.speed
-
-                self.direction.y = 0
-                self.direction.x = 0
+                    self.direction.x = 0
 
     def move(self):
         self.get_dir()
